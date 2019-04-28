@@ -1,6 +1,7 @@
 # SEISUNDITE-ESITAMINE-SQL-ANDMEBAASIDES
 
 Käesolevas hoidlas esitatud failid on osa tööst:
+
 Peek, S. 2019. Infosüsteemi põhiobjektide seisundite esitamine SQL-andmebaasides. 20.04.2019. Tallinna Tehnikaülikool, Magistritöö. 
 
 Magistritöö alamkataloogidest on leitavad järgnevad failid:
