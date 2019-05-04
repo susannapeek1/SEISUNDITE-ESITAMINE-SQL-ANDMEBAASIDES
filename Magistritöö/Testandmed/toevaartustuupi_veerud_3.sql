@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 INSERT INTO toevaartustuupi_veerud_3.tellimus (tellimuse_nr, kohaletoimetamise_aadress, on_ootel, on_tootlemisel, on_valja_saadetud, on_kohale_toimetatud, on_tuhistatud, seisundimuudatuse_aeg)
 SELECT 
 tellimuse_nr,
@@ -57,3 +59,5 @@ FALSE,
 TRUE,
 seisundimuudatuse_aeg
 FROM seisundiklassifikaator_3.tellimus WHERE seisundiklassifikaator_3.tellimus.tellimuse_seisundi_liik_kood = 5;
+
+COMMIT;

@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 INSERT INTO seisundite_tuletamine.tellimus (tellimuse_nr,esitamise_aeg,kohaletoimetamise_aadress)
 SELECT 
 tellimuse_nr,
@@ -89,3 +91,5 @@ tellimuse_nr,
 seisundimuudatuse_aeg -'1 day'::INTERVAL,
 seisundimuudatuse_aeg
 FROM seisundiklassifikaator.tellimus WHERE seisundiklassifikaator.tellimus.tellimuse_seisundi_liik_kood = 4;
+
+COMMIT;

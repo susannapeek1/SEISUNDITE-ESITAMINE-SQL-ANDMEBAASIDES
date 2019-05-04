@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 INSERT INTO temporaalsed_veerud_2.tellimus (tellimuse_nr, kohaletoimetamise_aadress, ootel_aeg, tootlemisel_aeg, valja_saadetud_aeg, kohale_toimetatud_aeg, tuhistatud_aeg)
 SELECT 
 tellimuse_nr,
@@ -52,3 +54,5 @@ NULL,
 NULL,
 seisundimuudatuse_aeg
 FROM seisundiklassifikaator_2.tellimus WHERE seisundiklassifikaator_2.tellimus.tellimuse_seisundi_liik_kood = 5;
+
+COMMIT;

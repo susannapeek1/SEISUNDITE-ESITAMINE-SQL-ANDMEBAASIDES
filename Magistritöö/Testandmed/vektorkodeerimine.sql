@@ -1,8 +1,10 @@
+START TRANSACTION;
+
 INSERT INTO vektorkodeerimine.tellimus (tellimuse_nr, kohaletoimetamise_aadress, seisund, seisundimuudatuse_aeg)
 SELECT 
 tellimuse_nr,
 kohaletoimetamise_aadress,
-10000,
+'10000',
 seisundimuudatuse_aeg
 FROM seisundiklassifikaator.tellimus WHERE seisundiklassifikaator.tellimus.tellimuse_seisundi_liik_kood = 1;
 
@@ -37,3 +39,5 @@ kohaletoimetamise_aadress,
 '00001',
 seisundimuudatuse_aeg
 FROM seisundiklassifikaator.tellimus WHERE seisundiklassifikaator.tellimus.tellimuse_seisundi_liik_kood = 5;
+
+COMMIT;
