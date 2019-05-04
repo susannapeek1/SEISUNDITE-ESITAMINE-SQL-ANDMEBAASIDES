@@ -1,4 +1,4 @@
-SELECT DISTINCT tellimuse_seisundi_liik.nimetus AS seisund 
+SELECT tellimuse_seisundi_liik.nimetus AS seisund 
 FROM   tellimuse_seisundi_liik 
 WHERE  NOT EXISTS (SELECT * 
                    FROM   tellimus 

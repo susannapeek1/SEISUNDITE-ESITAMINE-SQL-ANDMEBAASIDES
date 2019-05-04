@@ -1,6 +1,7 @@
-CREATE OR REPLACE FUNCTION F_Tellimus_peab_olema_kindlasti_mingis_seisundis() RETURNS TRIGGER AS $$
+START TRANSACTION;
+CREATE OR REPLACE FUNCTION f_Tellimus_peab_olema_kindlasti_mingis_seisundis() RETURNS TRIGGER AS $$
 DECLARE 
-	arv integer;
+arv INTEGER;
 BEGIN
 SELECT INTO arv COUNT(*) 
 FROM(SELECT Ootel_Tellimus.tellimuse_nr FROM Ootel_tellimus WHERE tellimuse_nr = NEW.tellimuse_nr
@@ -16,9 +17,9 @@ END IF;
 RETURN NEW;
 END;$$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = public, pg_temp;
-CREATE OR REPLACE FUNCTION F_ootel_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION f_ootel_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
 DECLARE 
-arv integer;
+arv INTEGER;
 t_tellimuse_nr Tellimus.tellimuse_nr%TYPE;	
 BEGIN
 SELECT tellimuse_nr INTO t_tellimuse_nr FROM Tellimus WHERE tellimuse_nr = NEW.tellimuse_nr FOR UPDATE;
@@ -36,9 +37,9 @@ RETURN NEW;
 END;$$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pohiolemituubi_alamtuupidena, pg_temp;
 CREATE OR REPLACE FUNCTION 
-F_tootlemisel_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
+f_tootlemisel_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
 DECLARE 
-arv integer;
+arv INTEGER;
 t_tellimuse_nr Tellimus.tellimuse_nr%TYPE;	
 BEGIN
 SELECT tellimuse_nr INTO t_tellimuse_nr FROM Tellimus WHERE tellimuse_nr = NEW.tellimuse_nr FOR UPDATE;
@@ -55,9 +56,9 @@ END IF;
 RETURN NEW;
 END;$$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pohiolemituubi_alamtuupidena, pg_temp;
-CREATE OR REPLACE FUNCTION F_valja_saadetud_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION f_valja_saadetud_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
 DECLARE 
-arv integer;
+arv INTEGER;
 t_tellimuse_nr Tellimus.tellimuse_nr%TYPE;	
 BEGIN
 SELECT tellimuse_nr INTO t_tellimuse_nr FROM Tellimus WHERE tellimuse_nr = NEW.tellimuse_nr FOR UPDATE;
@@ -74,9 +75,9 @@ END IF;
 RETURN NEW;
 END;$$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pohiolemituubi_alamtuupidena, pg_temp;
-CREATE OR REPLACE FUNCTION F_kohale_toimetatud_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION f_kohale_toimetatud_tellimus_saab_olla_korraga_uhes_seisundis() RETURNS TRIGGER AS $$
 DECLARE 
-arv integer;
+arv INTEGER;
 t_tellimuse_nr Tellimus.tellimuse_nr%TYPE;	
 BEGIN
 SELECT tellimuse_nr INTO t_tellimuse_nr FROM Tellimus WHERE tellimuse_nr = NEW.tellimuse_nr FOR UPDATE;
@@ -94,3 +95,4 @@ RETURN NEW;
 END;$$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pohiolemituubi_alamtuupidena, pg_temp;
 DROP TABLE tuhistatud_tellimus CASCADE;
+COMMIT;

@@ -1,5 +1,3 @@
-\c seisundite_esitamine;
-
 BEGIN;
 EXPLAIN ANALYZE UPDATE tellimus SET tellimuse_seisundi_liik_kood = 4 WHERE tellimus.tellimuse_nr=290550;
 ROLLBACK;
@@ -100,4 +98,3 @@ BEGIN;
 EXPLAIN ANALYZE DELETE FROM valja_saadetud_tellimus WHERE tellimuse_nr=290550;
 EXPLAIN ANALYZE INSERT INTO kohale_toimetatud_tellimus (tellimuse_nr) VALUES (290550); 
 ROLLBACK;
-

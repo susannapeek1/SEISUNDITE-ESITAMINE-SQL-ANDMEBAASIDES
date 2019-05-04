@@ -1,21 +1,18 @@
-SELECT a.seisund 
-FROM   (SELECT Count(*) AS tellimuste_arv, 
-               'Ootel'  AS seisund 
-        FROM   ootel_tellimus 
-        UNION 
-        SELECT Count(*)        AS tellimuste_arv, 
-               'Töötlemisel' AS seisund 
-        FROM   tootlemisel_tellimus 
-        UNION 
-        SELECT Count(*)      AS tellimuste_arv, 
-               'Tühistatud' AS seisund 
-        FROM   tuhistatud_tellimus 
-        UNION 
-        SELECT Count(*)          AS tellimuste_arv, 
-               'Välja saadetud' AS seisund 
-        FROM   valja_saadetud_tellimus 
-        UNION 
-        SELECT Count(*)            AS tellimuste_arv, 
-               'Kohale toimetatud' AS seisund 
-        FROM   kohale_toimetatud_tellimus) a 
-WHERE  a.tellimuste_arv = 0; 
+SELECT 'Ootel' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM ootel_tellimus)
+UNION
+SELECT 'Töötlemisel' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tootlemisel_tellimus)
+UNION 
+SELECT 'Välja saadetud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+                  FROM valja_saadetud_tellimus)
+UNION 
+SELECT 'Kohale toimetatud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+	              FROM kohale_toimetatud_tellimus)
+UNION SELECT 'Tühistatud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tuhistatud_tellimus);

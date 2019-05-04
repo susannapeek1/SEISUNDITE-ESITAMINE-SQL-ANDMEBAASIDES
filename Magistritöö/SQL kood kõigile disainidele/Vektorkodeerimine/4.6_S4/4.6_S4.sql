@@ -1,26 +1,24 @@
-SELECT a.seisund 
-FROM   (SELECT Count(*) AS tellimuste_arv, 
-               'Ootel'  AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.seisund = '10000' 
-        UNION 
-        SELECT Count(*)        AS tellimuste_arv, 
-               'Töötlemisel' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.seisund = '01000' 
-        UNION 
-        SELECT Count(*)          AS tellimuste_arv, 
-               'Välja saadetud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.seisund = '00100' 
-        UNION 
-        SELECT Count(*)            AS tellimuste_arv, 
-               'Kohale toimetatud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.seisund = '00010' 
-        UNION 
-        SELECT Count(*)      AS tellimuste_arv, 
-               'Tühistatud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.seisund = '00001') a 
-WHERE  a.tellimuste_arv = 0; 
+SELECT 'Ootel' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tellimus 
+				  WHERE f_seisundi_dekodeerimine(seisund) = 'Ootel')
+UNION 
+SELECT 'Töötlemisel' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tellimus 
+				  WHERE f_seisundi_dekodeerimine(seisund) = 'Töötlemisel')
+UNION 
+SELECT 'Välja saadetud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tellimus 
+				  WHERE f_seisundi_dekodeerimine(seisund) = 'Välja saadetud')
+UNION 
+SELECT 'Kohale toimetatud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tellimus 
+			      WHERE f_seisundi_dekodeerimine(seisund) = 'Kohale toimetatud')
+UNION 
+SELECT 'Tühistatud' AS seisund
+WHERE NOT EXISTS (SELECT * 
+				  FROM tellimus 
+				  WHERE f_seisundi_dekodeerimine(seisund) = 'Tühistatud');

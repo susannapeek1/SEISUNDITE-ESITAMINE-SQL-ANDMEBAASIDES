@@ -14,4 +14,4 @@ FROM   (SELECT tootlemisel_tellimus.tellimuse_nr,
         UNION 
         SELECT kohale_toimetatud_tellimus.tellimuse_nr, 
                'Kohale toimetatud' AS hetkeseisund 
-        FROM   kohale_toimetatud_tellimus) a; 
+        FROM   kohale_toimetatud_tellimus) a;

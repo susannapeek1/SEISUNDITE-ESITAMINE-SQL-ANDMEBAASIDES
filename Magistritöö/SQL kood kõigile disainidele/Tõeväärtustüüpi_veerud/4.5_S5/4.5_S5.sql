@@ -1,26 +1,26 @@
-SELECT a.seisund, 
-       a.tellimuste_arv AS tellimuste_arv 
-FROM   (SELECT Count(*) AS tellimuste_arv, 
-               'Ootel'  AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.on_ootel 
-        UNION 
-        SELECT Count(*)        AS tellimuste_arv, 
-               'Töötlemisel' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.on_tootlemisel 
-        UNION 
-        SELECT Count(*)          AS tellimuste_arv, 
-               'Välja saadetud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.on_valja_saadetud 
-        UNION 
-        SELECT Count(*)            AS tellimuste_arv, 
-               'Kohale toimetatud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.on_kohale_toimetatud 
-        UNION 
-        SELECT Count(*)      AS tellimuste_arv, 
-               'Tühistatud' AS seisund 
-        FROM   tellimus 
-        WHERE  tellimus.on_tuhistatud) a; 
+WITH seisundite_arvud AS (
+SELECT COUNT(*) FILTER (WHERE on_ootel = TRUE) AS ootel_tellimuste_arv,
+COUNT(*) FILTER (WHERE on_tootlemisel = TRUE) AS tootlemisel_tellimuste_arv,
+COUNT(*) FILTER (WHERE on_valja_saadetud = TRUE) AS valja_saadetud_tellimuste_arv,
+COUNT(*) FILTER (WHERE on_kohale_toimetatud = TRUE) AS kohale_toimetatud_tellimuste_arv,
+COUNT(*) FILTER (WHERE on_tuhistatud = TRUE) AS tuhistatud_tellimuste_arv
+FROM Tellimus)
+SELECT 'Ootel' AS seisund, 
+ootel_tellimuste_arv
+FROM seisundite_arvud
+UNION 
+SELECT 'Töötlemisel' AS seisund, 
+tootlemisel_tellimuste_arv
+FROM seisundite_arvud
+UNION 
+SELECT 'Välja saadetud' AS seisund, 
+valja_saadetud_tellimuste_arv
+FROM seisundite_arvud
+UNION 
+SELECT 'Kohale toimetatud' AS seisund, 
+kohale_toimetatud_tellimuste_arv
+FROM seisundite_arvud
+UNION 
+SELECT 'Tühistatud' AS seisund, 
+tuhistatud_tellimuste_arv
+FROM seisundite_arvud;
