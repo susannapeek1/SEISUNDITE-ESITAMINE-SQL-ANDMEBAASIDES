@@ -1,0 +1,1 @@
+DROP TABLE tellimuse_tuhistamine CASCADE;
