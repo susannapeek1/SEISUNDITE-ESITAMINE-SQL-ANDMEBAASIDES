@@ -1,4 +1,4 @@
-# SEISUNDITE-ESITAMINE-SQL-ANDMEBAASIDES
+# SEISUNDID SQL
 
 Käesolevas hoidlas esitatud failid on osa tööst:
 
