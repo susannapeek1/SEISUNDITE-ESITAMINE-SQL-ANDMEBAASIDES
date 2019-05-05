@@ -23,7 +23,5 @@ CREATE TABLE tellimuse_tuhistamine (
 	CONSTRAINT FK_Tellimuse_tuhistamine_Tellimus FOREIGN KEY (tellimuse_nr) REFERENCES tellimus (tellimuse_nr) ON DELETE Cascade ON UPDATE No Action);
 CREATE INDEX idx_Arve_tasumise_aeg ON arve (tasumise_aeg) 
 WHERE tasumise_aeg IS NOT NULL;
-CREATE INDEX idx_Saadetis_valjastamise_aeg ON saadetis (valjastamise_aeg) 
-WHERE valjastamise_aeg IS NOT NULL;
 CREATE INDEX idx_Saadetis_kliendile_uleandmise_aeg ON saadetis (kliendile_uleandmise_aeg) 
 WHERE kliendile_uleandmise_aeg IS NOT NULL;
