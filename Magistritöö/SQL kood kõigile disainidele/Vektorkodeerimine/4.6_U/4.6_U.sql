@@ -1,2 +1,2 @@
-UPDATE tellimus SET seisund = '00010' 
-WHERE  tellimuse_nr = 290550; 
+UPDATE tellimus SET seisund = f_tellimuse_seisundi_kodeerimine('Välja saadetud') 
+WHERE tellimuse_nr = 290550; 

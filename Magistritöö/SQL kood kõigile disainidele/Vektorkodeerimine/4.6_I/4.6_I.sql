@@ -19,3 +19,14 @@ SELECT CASE
 END AS seisundi_tulem;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 COMMIT;
+CREATE OR REPLACE FUNCTION f_tellimuse_seisundi_kodeerimine(seisund text) 
+RETURNS TEXT AS $$
+SELECT CASE
+    WHEN seisund = 'Ootel' THEN '100000'
+    WHEN seisund = 'Töötlemisel' THEN '010000'
+    WHEN seisund = 'Välja saadetud' THEN '001000'
+    WHEN seisund = 'Kohale toimetatud' THEN '000100'
+    WHEN seisund = 'Tühistatud' THEN '000010'  
+	WHEN seisund = 'Makstud' THEN '000001'
+END AS seisundi_tulem;
+$$ LANGUAGE sql IMMUTABLE STRICT;

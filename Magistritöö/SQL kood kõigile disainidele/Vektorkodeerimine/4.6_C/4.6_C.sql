@@ -19,6 +19,17 @@ ELSE 'Teadmata'
 END AS seisundi_tulem;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 CREATE INDEX idx_tellimus_seisundi_dekodeerimine ON tellimus (f_seisundi_dekodeerimine(seisund));
+CREATE OR REPLACE FUNCTION f_tellimuse_seisundi_kodeerimine(seisund text) 
+RETURNS TEXT AS $$
+SELECT CASE
+    WHEN seisund = 'Ootel' THEN '10000'
+    WHEN seisund = 'Töötlemisel' THEN '01000'
+    WHEN seisund = 'Välja saadetud' THEN '00100'
+    WHEN seisund = 'Kohale toimetatud' THEN '00010'
+    WHEN seisund = 'Tühistatud' THEN '00001'    
+END AS seisundi_tulem;
+$$ LANGUAGE sql IMMUTABLE STRICT;
+CREATE INDEX idx_tellimus_seisundi_kodeerimine ON tellimus (f_seisundi_kodeerimine(seisund));
 CREATE OR REPLACE FUNCTION f_kontroll_seisundi_vaartuse_ja_aja_muutusele() RETURNS TRIGGER AS $$
 BEGIN
 NEW.seisundimuudatuse_aeg = LOCALTIMESTAMP(0);
